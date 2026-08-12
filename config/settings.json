@@ -1,0 +1,27 @@
+{
+  "ai_engine": {
+    "primary_model": "gemini-2.5-flash",
+    "secondary_model": "gemini-1.5-flash",
+    "temperature": 0.4,
+    "max_output_tokens": 8192,
+    "timeout_seconds": 60,
+    "use_ai_when_available": true
+  },
+  "ui": {
+    "theme": "dark",
+    "window_width": 1200,
+    "window_height": 800,
+    "matplotlib_backend": "Agg"
+  },
+  "biology_defaults": {
+    "default_organism": "Escherichia coli",
+    "default_codon_table": "Bacterial",
+    "default_pcr_polymerase": "Taq",
+    "default_cell_line": "HEK293"
+  },
+  "biosafety": {
+    "enforce_screening": true,
+    "default_bsl": 1,
+    "block_select_agents": true
+  }
+}

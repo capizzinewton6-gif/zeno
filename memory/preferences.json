@@ -1,0 +1,10 @@
+{
+  "default_species": "Escherichia coli",
+  "default_host": "escherichia coli",
+  "default_bs_level": "BSL-1",
+  "units": "metric",
+  "theme": "default",
+  "auto_save": true,
+  "ai_model": "gemini-2.5-flash",
+  "note": "User preferences and default settings."
+}

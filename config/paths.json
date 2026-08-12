@@ -1,0 +1,8 @@
+{
+  "project_root": ".",
+  "memory_dir": "memory",
+  "database_dir": "database",
+  "output_dir": "output",
+  "figures_dir": "output/figures",
+  "reports_dir": "output/reports"
+}

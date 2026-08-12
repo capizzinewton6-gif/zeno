@@ -1,0 +1,15 @@
+# AI Biology AI - Python Dependencies
+# Core scientific stack
+numpy>=1.26
+scipy>=1.11
+matplotlib>=3.7
+biopython>=1.83
+pillow>=10.0
+rich>=13.0
+
+# AI engines (Google Gemini exclusively)
+google-generativeai>=0.7.0
+google-genai>=0.3.0
+
+# Web research (optional, for research_agent)
+requests>=2.31
