@@ -1,0 +1,185 @@
+[
+  {
+    "name": "Z_2",
+    "type": "group",
+    "order": 2,
+    "abelian": true,
+    "cyclic": true,
+    "multiplication_table": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "Z_3",
+    "type": "group",
+    "order": 3,
+    "abelian": true,
+    "cyclic": true,
+    "multiplication_table": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        1,
+        2,
+        0
+      ],
+      [
+        2,
+        0,
+        1
+      ]
+    ]
+  },
+  {
+    "name": "Z_4",
+    "type": "group",
+    "order": 4,
+    "abelian": true,
+    "cyclic": true,
+    "multiplication_table": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        3,
+        0,
+        1
+      ],
+      [
+        3,
+        0,
+        1,
+        2
+      ]
+    ]
+  },
+  {
+    "name": "Klein_4",
+    "type": "group",
+    "order": 4,
+    "abelian": true,
+    "cyclic": false,
+    "multiplication_table": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        0,
+        3,
+        2
+      ],
+      [
+        2,
+        3,
+        0,
+        1
+      ],
+      [
+        3,
+        2,
+        1,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "S_3",
+    "type": "group",
+    "order": 6,
+    "abelian": false,
+    "cyclic": false,
+    "note": "symmetric group on 3 elements"
+  },
+  {
+    "name": "Z_6",
+    "type": "group",
+    "order": 6,
+    "abelian": true,
+    "cyclic": true
+  },
+  {
+    "name": "Q_8",
+    "type": "group",
+    "order": 8,
+    "abelian": false,
+    "cyclic": false,
+    "note": "quaternion group"
+  },
+  {
+    "name": "D_4",
+    "type": "group",
+    "order": 8,
+    "abelian": false,
+    "cyclic": false,
+    "note": "dihedral group"
+  },
+  {
+    "name": "A_4",
+    "type": "group",
+    "order": 12,
+    "abelian": false,
+    "cyclic": false,
+    "note": "alternating group"
+  },
+  {
+    "name": "S_4",
+    "type": "group",
+    "order": 24,
+    "abelian": false,
+    "cyclic": false
+  },
+  {
+    "name": "Gal(x^2-2)",
+    "type": "galois_group",
+    "polynomial": "x^2-2",
+    "group": "Z_2"
+  },
+  {
+    "name": "Gal(x^3-2)",
+    "type": "galois_group",
+    "polynomial": "x^3-2",
+    "group": "S_3"
+  },
+  {
+    "name": "su(2)",
+    "type": "lie_algebra",
+    "dimension": 3,
+    "compact": true
+  },
+  {
+    "name": "su(3)",
+    "type": "lie_algebra",
+    "dimension": 8,
+    "compact": true
+  },
+  {
+    "name": "sl(2,R)",
+    "type": "lie_algebra",
+    "dimension": 3,
+    "compact": false
+  }
+]

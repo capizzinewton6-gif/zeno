@@ -1,0 +1,7 @@
+{
+  "base_dir": ".",
+  "config_dir": "config",
+  "memory_dir": "memory",
+  "database_dir": "database",
+  "output_dir": "output"
+}

@@ -1,0 +1,11 @@
+{
+  "version": "0.1.0",
+  "default_precision": 50,
+  "max_recursion_depth": 20,
+  "max_computation_seconds": 30,
+  "plot_dpi": 100,
+  "plot_style": "seaborn-v0_8-whitegrid",
+  "default_engine": "gemini-2.5-flash",
+  "fallback_to_local_reasoning": true,
+  "offline_mode": false
+}

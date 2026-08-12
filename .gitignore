@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Local runtime / generated output
+output/
+logs/
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

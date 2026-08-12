@@ -1,0 +1,234 @@
+{
+  "conjectures": [
+    {
+      "id": "1786559293629-99a6beef",
+      "created_at": 1786559293.6291249,
+      "name": "user_query",
+      "sequence": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "statement": "Conjecture (user_query): the sequence [2, 4, 6, 8, 10]... is arithmetic with common difference 2.",
+      "status": "plausible",
+      "pattern": {
+        "type": "arithmetic",
+        "common_difference": 2
+      }
+    },
+    {
+      "id": "1786559293641-218f2011",
+      "created_at": 1786559293.6412294,
+      "name": "user_query",
+      "sequence": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "statement": "Conjecture (user_query): the sequence [1, 1, 2, 3, 5]... satisfies the Fibonacci recurrence a_n = a_(n-1) + a_(n-2).",
+      "status": "plausible",
+      "pattern": {
+        "type": "fibonacci"
+      }
+    },
+    {
+      "id": "1786559293647-e0745cd5",
+      "created_at": 1786559293.6474178,
+      "name": "user_query",
+      "sequence": [
+        1,
+        1,
+        2,
+        5,
+        14,
+        42
+      ],
+      "statement": "Conjecture (user_query): a_n = x**5/20 - 3*x**4/8 + 7*x**3/6 - 9*x**2/8 + 17*x/60 + 1 for n = 0,1,2,...",
+      "status": "plausible",
+      "pattern": {
+        "type": "unknown",
+        "first_differences": [
+          0,
+          1,
+          3,
+          9,
+          28
+        ],
+        "second_differences": [
+          1,
+          2,
+          6,
+          19
+        ]
+      }
+    },
+    {
+      "id": "1786559312445-8ef16fd0",
+      "created_at": 1786559312.4457352,
+      "name": "user_query",
+      "sequence": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "statement": "Conjecture (user_query): the sequence [2, 4, 6, 8, 10]... is arithmetic with common difference 2.",
+      "status": "plausible",
+      "pattern": {
+        "type": "arithmetic",
+        "common_difference": 2
+      }
+    },
+    {
+      "id": "1786560358536-89e888f2",
+      "created_at": 1786560358.536479,
+      "name": "fib",
+      "sequence": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "statement": "Conjecture (fib): the sequence [1, 1, 2, 3, 5]... satisfies the Fibonacci recurrence a_n = a_(n-1) + a_(n-2).",
+      "status": "plausible",
+      "pattern": {
+        "type": "fibonacci"
+      }
+    },
+    {
+      "id": "1786560469661-2fd4f154",
+      "created_at": 1786560469.661024,
+      "name": "fib",
+      "sequence": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "statement": "Conjecture (fib): the sequence [1, 1, 2, 3, 5]... satisfies the Fibonacci recurrence a_n = a_(n-1) + a_(n-2).",
+      "status": "plausible",
+      "pattern": {
+        "type": "fibonacci"
+      }
+    },
+    {
+      "id": "1786560550620-a49f7e47",
+      "created_at": 1786560550.6205487,
+      "name": "fib",
+      "sequence": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "statement": "Conjecture (fib): the sequence [1, 1, 2, 3, 5]... satisfies the Fibonacci recurrence a_n = a_(n-1) + a_(n-2).",
+      "status": "plausible",
+      "pattern": {
+        "type": "fibonacci"
+      }
+    },
+    {
+      "id": "1786560624469-593ccb3d",
+      "created_at": 1786560624.4691758,
+      "name": "fib",
+      "sequence": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "statement": "Conjecture (fib): the sequence [1, 1, 2, 3, 5]... satisfies the Fibonacci recurrence a_n = a_(n-1) + a_(n-2).",
+      "status": "plausible",
+      "pattern": {
+        "type": "fibonacci"
+      }
+    },
+    {
+      "id": "1786560631725-eb1f7490",
+      "created_at": 1786560631.7255204,
+      "name": "ui_query",
+      "sequence": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "statement": "Conjecture (ui_query): the sequence [1, 1, 2, 3, 5]... satisfies the Fibonacci recurrence a_n = a_(n-1) + a_(n-2).",
+      "status": "plausible",
+      "pattern": {
+        "type": "fibonacci"
+      }
+    },
+    {
+      "id": "1786560650497-428979c7",
+      "created_at": 1786560650.49744,
+      "name": "fib",
+      "sequence": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "statement": "Conjecture (fib): the sequence [1, 1, 2, 3, 5]... satisfies the Fibonacci recurrence a_n = a_(n-1) + a_(n-2).",
+      "status": "plausible",
+      "pattern": {
+        "type": "fibonacci"
+      }
+    },
+    {
+      "id": "1786560819127-e7ef716b",
+      "created_at": 1786560819.1279104,
+      "name": "fib",
+      "sequence": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "statement": "Conjecture (fib): the sequence [1, 1, 2, 3, 5]... satisfies the Fibonacci recurrence a_n = a_(n-1) + a_(n-2).",
+      "status": "plausible",
+      "pattern": {
+        "type": "fibonacci"
+      }
+    },
+    {
+      "id": "1786560861240-4e59a14b",
+      "created_at": 1786560861.2400813,
+      "name": "ui_query",
+      "sequence": [
+        0,
+        1,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "statement": "Conjecture (ui_query): the sequence [0, 1, 1, 2, 3]... satisfies the Fibonacci recurrence a_n = a_(n-1) + a_(n-2).",
+      "status": "plausible",
+      "pattern": {
+        "type": "fibonacci"
+      }
+    }
+  ]
+}

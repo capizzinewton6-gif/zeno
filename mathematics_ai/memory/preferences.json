@@ -1,0 +1,6 @@
+{
+  "default_precision": 50,
+  "preferred_proof_style": "auto",
+  "show_steps": true,
+  "notation": "standard"
+}

@@ -1,0 +1,58 @@
+{
+  "projects": [
+    {
+      "id": "1786560551027",
+      "name": "Test Project",
+      "goal": "test conjectures",
+      "created": 1786560551.0271652,
+      "status": "planning",
+      "notes": [
+        "initial observation"
+      ],
+      "tasks": []
+    },
+    {
+      "id": "1786560624869",
+      "name": "Test Project",
+      "goal": "test conjectures",
+      "created": 1786560624.8690717,
+      "status": "planning",
+      "notes": [
+        "initial observation"
+      ],
+      "tasks": []
+    },
+    {
+      "id": "1786560631944-a0883af7",
+      "name": "TestProj",
+      "goal": "prove Collatz",
+      "created": 1786560631.9445024,
+      "status": "active",
+      "notes": [],
+      "tasks": []
+    },
+    {
+      "id": "1786560650866",
+      "name": "Test Project",
+      "goal": "test conjectures",
+      "created": 1786560650.8661962,
+      "status": "planning",
+      "notes": [
+        "initial observation"
+      ],
+      "tasks": []
+    },
+    {
+      "id": "1786560819527",
+      "name": "Test Project",
+      "goal": "test conjectures",
+      "created": 1786560819.527004,
+      "status": "planning",
+      "notes": [
+        "initial observation"
+      ],
+      "tasks": []
+    }
+  ],
+  "sessions": []
+}

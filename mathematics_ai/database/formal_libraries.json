@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Mathlib.Data.Nat.Basic",
+    "system": "Lean 4",
+    "description": "Basic natural number properties"
+  },
+  {
+    "name": "Mathlib.Algebra.Group.Basic",
+    "system": "Lean 4",
+    "description": "Group axioms and basic lemmas"
+  },
+  {
+    "name": "Mathlib.Algebra.Ring.Basic",
+    "system": "Lean 4",
+    "description": "Ring axioms"
+  },
+  {
+    "name": "Mathlib.Algebra.Field.Basic",
+    "system": "Lean 4",
+    "description": "Field axioms"
+  },
+  {
+    "name": "Mathlib.Topology.Basic",
+    "system": "Lean 4",
+    "description": "Topological spaces"
+  },
+  {
+    "name": "Mathlib.Analysis.Calculus.Deriv",
+    "system": "Lean 4",
+    "description": "Derivatives"
+  },
+  {
+    "name": "Mathlib.Data.Complex.Basic",
+    "system": "Lean 4",
+    "description": "Complex numbers"
+  },
+  {
+    "name": "Coq.Numbers.Natural.Abstract.NParity",
+    "system": "Coq",
+    "description": "Parity of natural numbers"
+  },
+  {
+    "name": "Coq.Lists.ListSet",
+    "system": "Coq",
+    "description": "Finite sets as lists"
+  },
+  {
+    "name": "Isabelle.HOL.Main",
+    "system": "Isabelle/HOL",
+    "description": "Main HOL theory"
+  }
+]
