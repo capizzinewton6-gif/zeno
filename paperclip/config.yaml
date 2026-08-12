@@ -1,0 +1,190 @@
+# Paperclip Configuration
+# =======================
+# Fully modular capability-based autonomous AI assistant
+
+# AI Configuration
+ai:
+  # Primary reasoning engine - Gemini 2.5 Flash
+  gemini_25_flash:
+    model: gemini/gemini-2.0-flash
+    temperature: 0.7
+    max_tokens: 8192
+    reasoning: true
+    
+  # High-speed processing - Gemini 1.5 Flash
+  gemini_15_flash:
+    model: gemini/gemini-1.5-flash
+    temperature: 0.5
+    max_tokens: 4096
+    reasoning: false
+
+  # Model routing settings
+  model_router:
+    reasoning_tasks: gemini_25_flash
+    processing_tasks: gemini_15_flash
+    default: gemini_15_flash
+
+# API Key (can also be set via GEMINI_API_KEY environment variable)
+api_key: ""
+
+# Autonomous Execution Engine
+execution:
+  max_iterations: 100
+  timeout_seconds: 300
+  retry_on_error: true
+  max_retries: 3
+  confirm_destructive: true
+
+# Capability Modules - Enable/disable individual capabilities
+capabilities:
+  # AI Reasoning
+  advanced_planning: true
+  task_decomposition: true
+  workflow_execution: true
+  memory_management: true
+  decision_engine: true
+  reasoning_engine: true
+  natural_language_understanding: true
+  adaptive_task_planning: true
+
+  # Computer Interaction
+  mouse_control: true
+  keyboard_control: true
+  gui_navigation: true
+  ocr_processing: true
+  screenshot_understanding: true
+  window_management: true
+  multi_monitor_support: true
+  clipboard_management: true
+
+  # Operating System
+  application_launcher: true
+  application_controller: true
+  system_settings: true
+  startup_management: true
+  process_management: true
+  service_management: true
+  notification_management: true
+  audio_control: true
+  display_control: true
+  network_configuration: true
+  storage_management: true
+
+  # File Management
+  file_search: true
+  folder_search: true
+  folder_navigation: true
+  file_operations: true
+  file_organization: true
+  archive_management: true
+  download_management: true
+  file_indexing: true
+  document_retrieval: true
+
+  # Document Processing
+  pdf_processing: true
+  word_processing: true
+  spreadsheet_processing: true
+  excel_automation: true
+  csv_processing: true
+  database_interaction: true
+  report_generation: true
+  document_summarization: true
+  content_extraction: true
+
+  # Browser
+  browser_automation: true
+  web_search: true
+  website_navigation: true
+  search_engine_automation: true
+  information_extraction: true
+  form_automation: true
+  online_research: true
+  tab_management: true
+  bookmark_management: true
+
+  # Development
+  terminal_execution: true
+  powershell_automation: true
+  cmd_automation: true
+  python_execution: true
+  git_automation: true
+  package_management: true
+  environment_configuration: true
+  software_installation: true
+  dev_workflow_automation: true
+
+  # Multimedia
+  youtube_control: true
+  video_playback: true
+  audio_playback: true
+  media_download: true
+  music_library: true
+  playlist_management: true
+
+  # Communication
+  whatsapp_automation: true
+  group_messaging: true
+  contact_management: true
+  social_media_automation: true
+  messaging_platforms: true
+
+  # Internet Services
+  internet_research: true
+  wikipedia_search: true
+  ip_lookup: true
+  speed_testing: true
+  location_detection: true
+  cloud_services: true
+
+  # Monitoring
+  battery_monitoring: true
+  cpu_monitoring: true
+  memory_monitoring: true
+  disk_monitoring: true
+  gpu_monitoring: true
+  system_diagnostics: true
+  hardware_information: true
+  performance_monitoring: true
+
+  # Productivity
+  reminder_management: true
+  calendar_management: true
+  task_organization: true
+  productivity_planning: true
+  intelligent_notifications: true
+
+  # Account
+  login_automation: true
+  logout_automation: true
+  signup_automation: true
+  multi_account_management: true
+  session_management: true
+
+  # Utilities
+  qr_generation: true
+  text_generation: true
+  ocr_text_extraction: true
+  calculator_engine: true
+  unit_conversion: true
+  utility_clipboard: true
+  screenshot_processing: true
+
+  # Power
+  shutdown_control: true
+  restart_control: true
+  sleep_control: true
+  hibernate_control: true
+  lock_control: true
+  signout_control: true
+  standby_control: true
+  wake_voice_control: true
+
+# Logging Configuration
+logging:
+  level: INFO
+  file: paperclip.log
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
+
+# Workspace (optional)
+workspace: /workspace

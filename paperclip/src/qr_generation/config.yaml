@@ -1,0 +1,9 @@
+# qr_generation Configuration
+# ============================
+
+enabled: true
+timeout: 30
+
+# Module-specific settings
+settings:
+  # Add module-specific configuration here
