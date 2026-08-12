@@ -1,0 +1,8 @@
+{
+  "user": "Operator",
+  "boot_sequence": true,
+  "spatial_audio": true,
+  "particle_effects": true,
+  "transparent_panels": true,
+  "arc_reactor_capacity_gj": 8.0
+}

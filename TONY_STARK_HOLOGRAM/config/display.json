@@ -1,0 +1,11 @@
+{
+  "resolution": [
+    3840,
+    2160
+  ],
+  "parallax": "full",
+  "lightfield": true,
+  "volumetric": true,
+  "target_fps": 60,
+  "depth_layers": 32
+}

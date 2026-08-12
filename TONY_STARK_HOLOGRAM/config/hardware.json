@@ -1,0 +1,18 @@
+{
+  "depth_camera": {
+    "type": "auto",
+    "enabled": true,
+    "range_m": 5.0
+  },
+  "projector": {
+    "type": "auto",
+    "brightness": 1.0,
+    "refresh_hz": 60
+  },
+  "spatial_light_modulator": {
+    "enabled": true,
+    "cells": 4096
+  },
+  "safety_interlock": true,
+  "thermal_limit_c": 75
+}
