@@ -1,0 +1,7 @@
+{
+  "local_solvers": [],
+  "root_install": "",
+  "cadabra_install": "",
+  "xact_install": "",
+  "note": "Optional paths to external physics tooling. Empty means: use built-in SymPy/NumPy/SciPy backends."
+}

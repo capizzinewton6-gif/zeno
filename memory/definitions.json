@@ -1,0 +1,15 @@
+{
+  "quantities": {
+    "energy": "J",
+    "momentum": "kg*m/s",
+    "force": "N",
+    "charge": "C",
+    "mass": "kg",
+    "length": "m",
+    "time": "s",
+    "temperature": "K"
+  },
+  "tensor_index_convention": "lowered = covariant, raised = contravariant",
+  "gauge_convention": "mostly-minus metric signature (-,+,+,+)",
+  "metric_signature": "(-,+,+,+)"
+}

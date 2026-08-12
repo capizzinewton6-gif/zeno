@@ -1,0 +1,13 @@
+{
+  "numerical_tolerance": 1.0e-9,
+  "default_grid_resolution": 256,
+  "default_time_step": 1.0e-3,
+  "default_integrator": "rk4",
+  "integrators": ["euler", "verlet", "leapfrog", "rk4", "rk45"],
+  "max_simulation_steps": 100000,
+  "unit_system": "SI",
+  "available_unit_systems": ["SI", "CGS", "natural", "planck"],
+  "arxiv_categories": ["hep-th", "hep-ph", "quant-ph", "astro-ph", "cond-mat", "gr-qc", "physics"],
+  "plot_dpi": 110,
+  "confirm_unphysical_actions": true
+}

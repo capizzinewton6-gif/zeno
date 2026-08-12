@@ -1,0 +1,24 @@
+# Physics AI - Python dependencies
+# Core scientific computing
+numpy>=1.24
+scipy>=1.10
+sympy>=1.12
+mpmath>=1.3
+
+# Simulation & quantum
+qutip>=4.7
+
+# Data formats
+h5py>=3.8
+
+# Astrophysics units & constants
+astropy>=5.3
+
+# Visualization
+matplotlib>=3.7
+
+# Rich terminal GUI
+rich>=13.4
+
+# Optional: CAS / research tooling (imported lazily, not required to run the UI)
+# sage is not pip-installable in the standard environment; kept optional.

@@ -1,0 +1,6 @@
+{
+  "unit_system": "SI",
+  "available_unit_systems": ["SI", "CGS", "natural", "planck"],
+  "plot_style": "dark",
+  "max_history": 100
+}
