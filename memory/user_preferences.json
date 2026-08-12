@@ -1,0 +1,12 @@
+{
+    "version": 1,
+    "preferences": {
+        "language": "en",
+        "automation_speed": "normal",
+        "confirm_before_action": true,
+        "store_screenshots": true,
+        "max_screenshot_age_days": 7,
+        "theme": "dark",
+        "notifications": true
+    }
+}

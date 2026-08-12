@@ -1,0 +1,52 @@
+{
+    "reasoning_model": {
+        "name": "gemini-2.5-flash",
+        "role": "Primary Engineering Intelligence Engine",
+        "responsibilities": [
+            "advanced reasoning",
+            "multi-step planning",
+            "security analysis",
+            "technical documentation generation",
+            "deployment planning",
+            "autonomous decision making",
+            "long-context project understanding",
+            "workflow orchestration"
+        ],
+        "temperature": 0.4,
+        "max_output_tokens": 8192,
+        "top_p": 0.95
+    },
+    "fast_model": {
+        "name": "gemini-1.5-flash",
+        "role": "High-Speed Processing & Analysis Engine",
+        "responsibilities": [
+            "fast context processing",
+            "file analysis",
+            "code summarization",
+            "documentation parsing",
+            "project indexing",
+            "information extraction",
+            "knowledge retrieval",
+            "validation tasks",
+            "metadata extraction",
+            "lightweight reasoning",
+            "workspace scanning",
+            "research preprocessing",
+            "context compression",
+            "supporting autonomous workflows"
+        ],
+        "temperature": 0.2,
+        "max_output_tokens": 4096,
+        "top_p": 0.9
+    },
+    "vision_model_name": "gemini-2.5-flash",
+    "ocr_model_name": "gemini-1.5-flash",
+    "object_model_name": "gemini-2.5-flash",
+    "ui_model_name": "gemini-2.5-flash",
+    "safety_settings": {
+        "harassment": "BLOCK_ONLY_HIGH",
+        "hate_speech": "BLOCK_ONLY_HIGH",
+        "sexually_explicit": "BLOCK_ONLY_HIGH",
+        "dangerous_content": "BLOCK_ONLY_HIGH"
+    }
+}

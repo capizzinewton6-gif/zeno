@@ -1,0 +1,13 @@
+{
+    "app_name": "Screen Recognition AI",
+    "version": "1.0.0",
+    "description": "A Gemini-powered screen recognition and automation AI",
+    "log_level": "INFO",
+    "max_history": 1000,
+    "auto_save": true,
+    "save_interval_seconds": 60,
+    "working_directory": ".",
+    "data_directory": "memory",
+    "database_directory": "database",
+    "screenshot_directory": "memory/screenshots"
+}

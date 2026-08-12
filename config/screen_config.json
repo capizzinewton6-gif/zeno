@@ -1,0 +1,16 @@
+{
+    "capture_fps": 30,
+    "capture_quality": 85,
+    "default_monitor": 0,
+    "screenshot_format": "PNG",
+    "screenshot_scale": 1.0,
+    "region_of_interest": null,
+    "multi_monitor_enabled": true,
+    "capture_cursor": true,
+    "optimize_capture": true,
+    "frame_buffer_size": 30,
+    "resize_width": 1920,
+    "resize_height": 1080,
+    "deduplicate_frames": true,
+    "change_threshold": 0.01
+}
