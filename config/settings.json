@@ -1,0 +1,33 @@
+{
+    "model": {
+        "reasoning_model": "gemini-2.5-flash",
+        "fast_model": "gemini-1.5-flash"
+    },
+    "generation": {
+        "temperature": 0.2,
+        "top_p": 0.95,
+        "max_tokens": 8192,
+        "timeout_seconds": 120
+    },
+    "sandbox": {
+        "enabled": true,
+        "timeout_seconds": 30,
+        "max_output_bytes": 1048576,
+        "forbidden_commands": ["rm -rf /", "mkfs", "dd if=/dev", "shutdown", "reboot"]
+    },
+    "ui": {
+        "theme": "dark",
+        "syntax_highlight": true,
+        "show_diff": "side-by-side",
+        "progress_bars": true
+    },
+    "repository": {
+        "max_indexed_files": 5000,
+        "ignore_dot_dirs": true
+    },
+    "token_budget": {
+        "context_window": 1000000,
+        "reserve_for_response": 8192,
+        "truncation_strategy": "keep_imports_and_signatures"
+    }
+}

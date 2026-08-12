@@ -1,0 +1,21 @@
+{
+    "python": "python3",
+    "pip": "pip3",
+    "node": "node",
+    "npm": "npm",
+    "bun": "bun",
+    "tsc": "tsc",
+    "cargo": "cargo",
+    "rustc": "rustc",
+    "go": "go",
+    "cmake": "cmake",
+    "gcc": "gcc",
+    "gpp": "g++",
+    "mvn": "mvn",
+    "gradle": "gradle",
+    "java": "java",
+    "kotlinc": "kotlinc",
+    "git": "git",
+    "docker": "docker",
+    "sqlite3": "sqlite3"
+}
