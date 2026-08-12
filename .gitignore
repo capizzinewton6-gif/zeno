@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.db
+*.pt
+*.onnx
+*.engine
+.venv/
+venv/
+.env
+.agent_tmp/

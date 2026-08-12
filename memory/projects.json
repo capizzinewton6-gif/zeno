@@ -1,0 +1,10 @@
+{
+  "default": {
+    "name": "default",
+    "description": "Auto-created session",
+    "cameras": [],
+    "models": {},
+    "config": {},
+    "status": "planning"
+  }
+}

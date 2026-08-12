@@ -1,0 +1,18 @@
+{
+  "app_name": "VISION_AI",
+  "version": "0.1.0",
+  "default_camera_index": 0,
+  "default_resolution": [1280, 720],
+  "default_fps_target": 30,
+  "frame_skip": 0,
+  "jpeg_quality": 85,
+  "detection_confidence_threshold": 0.40,
+  "face_match_threshold": 0.55,
+  "nms_iou_threshold": 0.45,
+  "tracking_max_age_frames": 30,
+  "min_hits": 3,
+  "anonymize_unknown_faces": false,
+  "save_annotated_frames": true,
+  "dashboard_grid": "auto",
+  "ui_theme": "dark"
+}

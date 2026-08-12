@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "models": {
+    "yolov8n": {"task": "detect", "input_shape": [1, 3, 640, 640], "classes": "coco", "engine": "pytorch"},
+    "retinaface": {"task": "face_detect", "input_shape": [1, 3, 640, 640], "engine": "pytorch"},
+    "arcface_r50": {"task": "face_embed", "embedding_dim": 512, "engine": "pytorch"}
+  }
+}

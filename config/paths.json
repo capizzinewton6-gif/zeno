@@ -1,0 +1,11 @@
+{
+  "weights_dir": "weights",
+  "logs_dir": "logs",
+  "snapshots_dir": "snapshots",
+  "exports_dir": "exports",
+  "reports_dir": "reports",
+  "cuda_bin": "/usr/local/cuda/bin",
+  "rtsp_feeds": [],
+  "default_face_db": "database/face_embeddings.db",
+  "default_event_db": "database/event_records.db"
+}
