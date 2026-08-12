@@ -1,0 +1,13 @@
+{
+  "primary_model": "gemini-2.5-flash",
+  "secondary_model": "gemini-1.5-flash",
+  "temperature": 0.7,
+  "max_output_tokens": 8192,
+  "top_p": 0.95,
+  "project_base_dir": "projects",
+  "auto_package": true,
+  "auto_blueprints": true,
+  "auto_documentation": true,
+  "default_view_timeout": 60,
+  "log_level": "INFO"
+}

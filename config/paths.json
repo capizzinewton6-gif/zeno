@@ -1,0 +1,6 @@
+{
+  "painter_executable": "mspaint.exe",
+  "notepad_executable": "notepad.exe",
+  "output_dir": "projects",
+  "temp_dir": "tmp"
+}
