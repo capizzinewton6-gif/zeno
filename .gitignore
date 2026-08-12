@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Generated artifacts
+static/plots/
+static/reactions/
+*.db
+
+# Environment / secrets
+.env
+*.log
+
+# OS
+.DS_Store

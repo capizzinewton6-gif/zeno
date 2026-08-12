@@ -1,0 +1,8 @@
+{
+  "orca": "/usr/local/bin/orca",
+  "gaussian": "/usr/local/bin/g16",
+  "rdkit": "",
+  "psi4": "/usr/local/bin/psi4",
+  "openbabel": "/usr/local/bin/obabel",
+  "note": "Set paths to computational chemistry executables. Empty paths disable live execution; simulations run on the UI."
+}

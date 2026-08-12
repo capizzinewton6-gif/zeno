@@ -1,0 +1,8 @@
+{
+  "pubchem": "",
+  "chemspider": "",
+  "reaxys": "",
+  "uspto_patentsview": "",
+  "gemini_api_key_env": "GEMINI_API_KEY",
+  "note": "Place API credentials here or set via environment variables. Do not commit real keys."
+}

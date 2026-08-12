@@ -1,0 +1,29 @@
+{
+  "ai_engine": {
+    "deep_reasoning_model": "gemini-2.5-flash",
+    "fast_processing_model": "gemini-1.5-flash",
+    "temperature": 0.2,
+    "max_output_tokens": 4096
+  },
+  "dft": {
+    "default_method": "B3LYP",
+    "default_basis_set": "6-31G*",
+    "default_charge": 0,
+    "default_multiplicity": 1,
+    "solvent_model": "PCM"
+  },
+  "mmff": {
+    "force_field": "MMFF94",
+    "max_iterations": 200,
+    "convergence_threshold": 1e-4
+  },
+  "ui": {
+    "theme": "dark",
+    "simulations_on_ui": true
+  },
+  "safety": {
+    "screen_enabled": true,
+    "block_disallowed": true
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemistry AI — Autonomous Laboratory Assistant</title>
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --border:#30363d;
+  --text:#c9d1d9; --muted:#8b949e; --blue:#58a6ff; --green:#7ee787;
+  --red:#ff7b72; --purple:#bc8cff; --yellow:#d2a8ff; --orange:#ffa657;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Segoe UI',-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.5}
+header{background:linear-gradient(90deg,#0d1117,#161b22);border-bottom:1px solid var(--border);
+  padding:14px 20px;position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header h1{margin:0;font-size:20px;background:linear-gradient(90deg,#58a6ff,#7ee787,#bc8cff);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+header .sub{color:var(--muted);font-size:12px}
+.badge{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-size:11px;color:var(--green)}
+.layout{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 64px)}
+nav{background:var(--panel);border-right:1px solid var(--border);padding:14px 0}
+nav a{display:block;padding:9px 18px;color:var(--muted);text-decoration:none;font-size:14px;border-left:3px solid transparent;cursor:pointer}
+nav a:hover{background:var(--panel2);color:var(--text)}
+nav a.active{color:var(--blue);border-left-color:var(--blue);background:var(--panel2)}
+nav .group{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:12px 18px 4px}
+main{padding:24px;max-width:1100px;margin:0 auto;width:100%}
+.section{display:none}
+.section.active{display:block}
+h2{margin-top:0;color:var(--text);font-size:22px}
+h3{color:var(--blue);font-size:16px;margin-bottom:8px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:18px}
+.card h3{margin-top:0}
+.desc{color:var(--muted);font-size:13px;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+label{display:block;font-size:13px;color:var(--muted);margin:8px 0 4px}
+input,select,textarea{width:100%;padding:9px 11px;background:var(--bg);border:1px solid var(--border);
+  border-radius:6px;color:var(--text);font-size:14px;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue)}
+button{background:var(--blue);color:#0d1117;border:none;border-radius:6px;padding:9px 18px;font-size:14px;
+  font-weight:600;cursor:pointer;margin-top:12px}
+button:hover{filter:brightness(1.1)}
+button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
+button.secondary:hover{border-color:var(--blue)}
+.result{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px;margin-top:14px;
+  font-family:'SF Mono',Consolas,monospace;font-size:13px;white-space:pre-wrap;word-break:break-word;max-height:420px;overflow:auto}
+.result.empty{color:var(--muted)}
+.result img{max-width:100%;border-radius:6px;margin-top:8px}
+.tag{display:inline-block;background:var(--panel2);border:1px solid var(--border);border-radius:12px;
+  padding:3px 10px;font-size:11px;margin:3px;color:var(--green)}
+.cap-list{display:grid;grid-template-columns:1fr;gap:6px}
+.cap{display:flex;justify-content:space-between;padding:7px 12px;background:var(--bg);border:1px solid var(--border);
+  border-radius:6px;font-size:13px}
+.cap .mod{color:var(--purple);font-family:monospace;font-size:12px}
+.stat{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.stat .num{font-size:26px;color:var(--green);font-weight:700}
+.stat .lbl{font-size:12px;color:var(--muted)}
+.warn{background:#3b1d1d;border:1px solid var(--red);color:var(--red);border-radius:6px;padding:10px;font-size:13px;margin-top:8px}
+.note{font-size:12px;color:var(--muted);margin-top:6px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:18px;border-top:1px solid var(--border)}
+.chat-log{max-height:420px;overflow:auto}
+.chat-msg{padding:10px 14px;border-radius:8px;margin-bottom:8px;max-width:90%}
+.chat-msg.user{background:var(--panel2);border:1px solid var(--border);margin-left:auto}
+.chat-msg.ai{background:#15203a;border:1px solid var(--blue)}
+.chat-msg .role{font-size:11px;color:var(--muted);margin-bottom:3px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px 10px;border:1px solid var(--border);text-align:left}
+th{background:var(--panel2);color:var(--blue)}
+.scroll{max-height:300px;overflow:auto}
+@media(max-width:780px){.layout{grid-template-columns:1fr}.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚗️ Chemistry AI</h1>
+  <span class="sub">Autonomous AI Chemistry Laboratory Assistant</span>
+  <span class="badge" id="engineBadge">Gemini 2.5 + 1.5 Flash</span>
+  <span class="badge" style="color:var(--orange);border-color:var(--orange)">Simulations on UI</span>
+</header>
+<div class="layout">
+<nav id="nav">
+  <div class="group">Overview</div>
+  <a data-sec="home" class="active">🏠 Dashboard</a>
+  <a data-sec="capabilities">🧩 Capabilities</a>
+  <a data-sec="engines">🤖 AI Engines</a>
+  <a data-sec="agent">💬 AI Assistant</a>
+  <div class="group">Calculations</div>
+  <a data-sec="stoich">⚖️ Stoichiometry</a>
+  <a data-sec="thermo">🔥 Thermodynamics</a>
+  <a data-sec="kinetics">⚙️ Kinetics</a>
+  <a data-sec="equilibrium">🧪 Equilibrium / pH</a>
+  <a data-sec="electro">⚡ Electrochemistry</a>
+  <a data-sec="spectro">📐 Spectroscopy</a>
+  <a data-sec="quantum">🌀 Quantum Math</a>
+  <a data-sec="units">📏 Unit Converter</a>
+  <div class="group">Tools</div>
+  <a data-sec="formula">🧮 Formula Engine</a>
+  <a data-sec="cheminfo">🔗 Cheminformatics</a>
+  <a data-sec="plots">📊 Plots & Spectra</a>
+  <a data-sec="reactions">⚗️ Reaction Schemes</a>
+  <div class="group">Safety & Research</div>
+  <a data-sec="safety">⚠️ Safety (GHS)</a>
+  <a data-sec="db">🗄️ Databases</a>
+</nav>
+<main>
+
+<!-- DASHBOARD -->
+<div class="section active" id="sec-home">
+  <h2>Welcome to Chemistry AI</h2>
+  <p class="desc">An advanced text-GUI-based AI Chemistry Laboratory Assistant. It understands high-level chemical
+  instructions, decomposes complex problems, researches information, and solves advanced chemistry problems using
+  rigorous scientific reasoning. Built on a <b>One Capability = One Source Code Module</b> architecture.</p>
+  <div class="grid3">
+    <div class="stat"><div class="num" id="capCount">—</div><div class="lbl">Capability Modules</div></div>
+    <div class="stat"><div class="num">7</div><div class="lbl">Specialist Agents</div></div>
+    <div class="stat"><div class="num">2</div><div class="lbl">Gemini Engines</div></div>
+  </div>
+  <div class="grid3" style="margin-top:14px">
+    <div class="stat"><div class="num">8</div><div class="lbl">Calculation Modules</div></div>
+    <div class="stat"><div class="num">6</div><div class="lbl">Tool Modules</div></div>
+    <div class="stat"><div class="num">7</div><div class="lbl">Synthesis Modules</div></div>
+  </div>
+  <div class="card">
+    <h3>Quick Start</h3>
+    <p class="desc">Use the AI Assistant to ask any chemistry question (it routes to the right specialist agent), or
+    open a specific calculation/tool panel from the sidebar. All simulations run on this user interface.</p>
+    <button class="secondary" onclick="show('agent')">Open AI Assistant</button>
+  </div>
+  <div class="card">
+    <h3>System Status</h3>
+    <div id="setupStatus" class="result empty">Checking…</div>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<div class="section" id="sec-capabilities">
+  <h2>Capability Catalog</h2>
+  <p class="desc">Every chemistry feature is an independent software component (one capability = one source code module).</p>
+  <div id="capList" class="cap-list">Loading…</div>
+</div>
+
+<!-- ENGINES -->
+<div class="section" id="sec-engines">
+  <h2>AI Engine Modules</h2>
+  <p class="desc">Chemistry AI uses only Google's Gemini models. The engines provide intelligence to capability modules
+  and are not themselves chemistry capabilities.</p>
+  <div id="enginesInfo">Loading…</div>
+</div>
+
+<!-- AGENT -->
+<div class="section" id="sec-agent">
+  <h2>AI Chemistry Assistant</h2>
+  <p class="desc">Ask a chemistry question. The main ChemistryAgent routes your request to the right specialist agent
+  (synthetic, quantum, analytical, research, optimization, project) and applies safety screening.</p>
+  <div class="card">
+    <div class="chat-log" id="chatLog"></div>
+    <label>Your question</label>
+    <textarea id="agentInput" rows="3" placeholder="e.g. Design a retrosynthesis for aspirin, or calculate the pH of 0.1 M acetic acid"></textarea>
+    <button onclick="runAgent()">Ask Chemistry AI</button>
+    <button class="secondary" onclick="document.getElementById('chatLog').innerHTML=''">Clear</button>
+  </div>
+</div>
+
+<!-- STOICHIOMETRY -->
+<div class="section" id="sec-stoich">
+  <h2>Stoichiometry</h2>
+  <p class="desc">Moles, molarity, limiting reagents, and percent yields.</p>
+  <div class="card">
+    <h3>Calculation</h3>
+    <div class="grid2">
+      <div><label>Operation</label>
+        <select id="stoichOp" onchange="stoichUI()">
+          <option value="mass_to_moles">Mass → Moles</option>
+          <option value="moles_to_mass">Moles → Mass</option>
+          <option value="molarity">Molarity (M = mol/L)</option>
+          <option value="dilution">Dilution (C1V1=C2V2 → V2)</option>
+          <option value="percent_yield">Percent Yield</option>
+          <option value="limiting_reagent">Limiting Reagent</option>
+        </select>
+      </div>
+    </div>
+    <div id="stoichFields"></div>
+    <button onclick="calcStoich()">Calculate</button>
+    <div id="stoichResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- THERMODYNAMICS -->
+<div class="section" id="sec-thermo">
+  <h2>Thermodynamics</h2>
+  <p class="desc">Hess's Law, van 't Hoff equation, and heat capacity.</p>
+  <div class="card">
+    <label>Operation</label>
+    <select id="thermoOp" onchange="thermoUI()">
+      <option value="gibbs">Gibbs Free Energy (dG=dH-T·dS)</option>
+      <option value="gibbs_from_K">dG from K (dG=-RT ln K)</option>
+      <option value="van_t_hoff">van 't Hoff (K2)</option>
+      <option value="heat">Heat (q=m·c·ΔT)</option>
+      <option value="calorimetry">Calorimetry ΔH</option>
+    </select>
+    <div id="thermoFields"></div>
+    <button onclick="calcThermo()">Calculate</button>
+    <div id="thermoResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- KINETICS -->
+<div class="section" id="sec-kinetics">
+  <h2>Kinetics</h2>
+  <p class="desc">Rate laws, Arrhenius equation, and reaction order.</p>
+  <div class="card">
+    <label>Operation</label>
+    <select id="kinOp" onchange="kinUI()">
+      <option value="arrhenius">Arrhenius k = A·exp(-Ea/RT)</option>
+      <option value="half_life">Half-life (0/1/2 order)</option>
+      <option value="rate_law">Rate = k·∏[C]^order</option>
+      <option value="activation_energy">Ea from two rates</option>
+    </select>
+    <div id="kinFields"></div>
+    <button onclick="calcKin()">Calculate</button>
+    <div id="kinResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- EQUILIBRIUM -->
+<div class="section" id="sec-equilibrium">
+  <h2>Equilibrium & pH</h2>
+  <p class="desc">Ka, Kb, Ksp, pH, and buffer capacity (Henderson–Hasselbalch).</p>
+  <div class="card">
+    <label>Operation</label>
+    <select id="eqOp" onchange="eqUI()">
+      <option value="ph_from_h">pH from [H+]</option>
+      <option value="weak_acid_ph">Weak acid pH</option>
+      <option value="weak_base_ph">Weak base pH</option>
+      <option value="henderson">Buffer (Henderson–Hasselbalch)</option>
+      <option value="pka">pKa from Ka</option>
+      <option value="solubility">Molar solubility from Ksp</option>
+    </select>
+    <div id="eqFields"></div>
+    <button onclick="calcEq()">Calculate</button>
+    <div id="eqResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- ELECTROCHEMISTRY -->
+<div class="section" id="sec-electro">
+  <h2>Electrochemistry</h2>
+  <p class="desc">Nernst equation, standard reduction potentials, Faraday's laws.</p>
+  <div class="card">
+    <label>Operation</label>
+    <select id="elOp" onchange="elUI()">
+      <option value="cell_potential">Cell Potential (Ec - Ea)</option>
+      <option value="nernst">Nernst (general T)</option>
+      <option value="nernst_25c">Nernst @ 25°C</option>
+      <option value="gibbs">dG = -nFE</option>
+      <option value="faraday_mass">Mass deposited (Faraday)</option>
+      <option value="equilibrium_K">K from E°</option>
+    </select>
+    <div id="elFields"></div>
+    <button onclick="calcEl()">Calculate</button>
+    <div id="elResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- SPECTROSCOPY -->
+<div class="section" id="sec-spectro">
+  <h2>Spectroscopy Math</h2>
+  <p class="desc">Beer–Lambert law, chemical shift, and mass-to-charge ratios.</p>
+  <div class="card">
+    <label>Operation</label>
+    <select id="spOp" onchange="spUI()">
+      <option value="beer_conc">Beer–Lambert: Concentration</option>
+      <option value="beer_abs">Beer–Lambert: Absorbance</option>
+      <option value="abs_from_T">Absorbance from Transmittance</option>
+      <option value="chemical_shift">NMR Chemical Shift (ppm)</option>
+      <option value="mz">m/z (mass/charge)</option>
+      <option value="energy_wavelength">Energy from wavelength</option>
+      <option value="wavenumber">Wavenumber from wavelength</option>
+    </select>
+    <div id="spFields"></div>
+    <button onclick="calcSp()">Calculate</button>
+    <div id="spResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- QUANTUM -->
+<div class="section" id="sec-quantum">
+  <h2>Quantum Math</h2>
+  <p class="desc">Schrödinger equation models and basis-set matrix elements.</p>
+  <div class="card">
+    <label>Operation</label>
+    <select id="qmOp" onchange="qmUI()">
+      <option value="hydrogen_energy">Hydrogen atom energy (E_n = -13.6/n²)</option>
+      <option value="particle_in_box">Particle in a box</option>
+      <option value="harmonic">Harmonic oscillator</option>
+      <option value="gaussian_overlap">Gaussian basis overlap</option>
+      <option value="hartree_to_ev">Hartree → eV</option>
+    </select>
+    <div id="qmFields"></div>
+    <button onclick="calcQm()">Calculate</button>
+    <div id="qmResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- UNITS -->
+<div class="section" id="sec-units">
+  <h2>Unit Converter</h2>
+  <p class="desc">Chemical unit conversions (temperature, pressure, energy, volume, length).</p>
+  <div class="card">
+    <label>Conversion</label>
+    <select id="unitOp" onchange="unitUI()">
+      <option value="c_to_f">°C → °F</option>
+      <option value="f_to_c">°F → °C</option>
+      <option value="c_to_k">°C → K</option>
+      <option value="k_to_c">K → °C</option>
+      <option value="atm_to_kpa">atm → kPa</option>
+      <option value="kpa_to_atm">kPa → atm</option>
+      <option value="atm_to_mmhg">atm → mmHg</option>
+      <option value="kj_to_kcal">kJ → kcal</option>
+      <option value="kcal_to_kj">kcal → kJ</option>
+      <option value="ev_to_kjmol">eV → kJ/mol</option>
+      <option value="ml_to_l">mL → L</option>
+      <option value="l_to_ml">L → mL</option>
+      <option value="nm_to_angstrom">nm → Å</option>
+      <option value="bohr_to_angstrom">Bohr → Å</option>
+    </select>
+    <div id="unitFields"></div>
+    <button onclick="calcUnit()">Convert</button>
+    <div id="unitResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- FORMULA -->
+<div class="section" id="sec-formula">
+  <h2>Formula Engine</h2>
+  <p class="desc">Exact masses, molecular weights, and isotopic distributions.</p>
+  <div class="card">
+    <label>Chemical Formula</label>
+    <input id="formulaIn" value="C8H9NO2" placeholder="e.g. C8H9NO2 (aspirin without acetyl)">
+    <button onclick="calcFormula()">Analyze</button>
+    <div id="formulaResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- CHEMINFORMATICS -->
+<div class="section" id="sec-cheminfo">
+  <h2>Cheminformatics</h2>
+  <p class="desc">SMILES parsing, substructure matching, and fingerprinting (RDKit when available).</p>
+  <div class="card">
+    <label>Operation</label>
+    <select id="ciOp" onchange="ciUI()">
+      <option value="parse_smiles">Parse SMILES</option>
+      <option value="substructure">Substructure match (SMARTS)</option>
+      <option value="fingerprint">Morgan fingerprint</option>
+    </select>
+    <div id="ciFields"></div>
+    <button onclick="calcCi()">Run</button>
+    <div id="ciResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- PLOTS -->
+<div class="section" id="sec-plots">
+  <h2>Plots & Spectra Simulation</h2>
+  <p class="desc">Simulate NMR spectra, chromatograms, kinetic curves, and calibration curves on the UI.</p>
+  <div class="card">
+    <label>Plot type</label>
+    <select id="plotOp" onchange="plotUI()">
+      <option value="nmr">1H NMR spectrum</option>
+      <option value="chromatogram">HPLC chromatogram</option>
+      <option value="kinetics">Kinetic decay curve</option>
+      <option value="calibration">Calibration curve</option>
+    </select>
+    <div id="plotFields"></div>
+    <button onclick="genPlot()">Generate Plot</button>
+    <div id="plotResult" class="result empty">Plot will appear here.</div>
+  </div>
+</div>
+
+<!-- REACTION SCHEMES -->
+<div class="section" id="sec-reactions">
+  <h2>Reaction Schemes</h2>
+  <p class="desc">Generate publication-quality reaction schemes (SVG/RDKit).</p>
+  <div class="card">
+    <label>Reactants (comma-separated SMILES or labels)</label>
+    <input id="rxnR" value="CC(=O)O, OC1=CC=CC=C1" placeholder="e.g. acetic acid, phenol">
+    <label>Products (comma-separated)</label>
+    <input id="rxnP" value="CC(=O)OC1=CC=CC=C1" placeholder="e.g. aspirin SMILES">
+    <label>Conditions</label>
+    <input id="rxnC" value="H2SO4, reflux">
+    <button onclick="drawScheme()">Draw Scheme</button>
+    <div id="rxnResult" class="result empty">Scheme will appear here.</div>
+  </div>
+</div>
+
+<!-- SAFETY -->
+<div class="section" id="sec-safety">
+  <h2>Chemical Safety (GHS)</h2>
+  <p class="desc">GHS hazard classes, pictograms, signal words, and compatibility checking.</p>
+  <div class="card">
+    <h3>GHS Classification</h3>
+    <input id="ghsIn" value="sulfuric acid" placeholder="chemical name">
+    <button onclick="classifyGHS()">Classify</button>
+    <div id="ghsResult" class="result empty">Result will appear here.</div>
+  </div>
+  <div class="card">
+    <h3>Compatibility Check</h3>
+    <input id="compatIn" value="hydrogen peroxide, ethanol, toluene" placeholder="comma-separated chemicals">
+    <button onclick="checkCompat()">Check Mixture</button>
+    <div id="compatResult" class="result empty">Result will appear here.</div>
+  </div>
+</div>
+
+<!-- DATABASES -->
+<div class="section" id="sec-db">
+  <h2>Chemical Databases</h2>
+  <p class="desc">Query local SQLite databases (chemicals, reactions, spectra, safety, solvents).</p>
+  <div class="card">
+    <label>Database</label>
+    <select id="dbSelect">
+      <option value="chemicals">chemicals_reagents.db</option>
+      <option value="reactions">reaction_rules.db</option>
+      <option value="spectra">spectra_reference.db</option>
+      <option value="safety">safety_hazards.db</option>
+      <option value="solvents">catalysts_solvents.db (solvents)</option>
+    </select>
+    <label>Search query (leave empty to list)</label>
+    <input id="dbQuery" placeholder="e.g. ethanol">
+    <button onclick="searchDb()">Search</button>
+    <button class="secondary" onclick="initDb()">Initialize Databases</button>
+    <div id="dbResult" class="result empty">Results will appear here.</div>
+  </div>
+</div>
+
+</main>
+</div>
+<footer>
+  Chemistry AI v1.0.0 · One Capability = One Source Code Module · All simulations on the UI ·
+  Google Gemini 2.5 Flash + 1.5 Flash
+</footer>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+function show(sec){
+  $$('.section').forEach(s=>s.classList.remove('active'));
+  $('#sec-'+sec).classList.add('active');
+  $$('#nav a').forEach(a=>a.classList.remove('active'));
+  const link = [...$$('#nav a')].find(a=>a.dataset.sec===sec);
+  if(link) link.classList.add('active');
+}
+$$('#nav a').forEach(a=>a.onclick=()=>show(a.dataset.sec));
+
+function showResult(id, data){
+  const el = $('#'+id);
+  el.classList.remove('empty');
+  if(data && data.image){
+    let html = `<img src="${data.image}" alt="plot"><br>`;
+    const {image, ...rest} = data;
+    html += '<pre>'+JSON.stringify(rest,null,2)+'</pre>';
+    el.innerHTML = html;
+  } else {
+    el.textContent = JSON.stringify(data,null,2);
+  }
+}
+function showHTML(id, html){
+  const el = $('#'+id); el.classList.remove('empty'); el.innerHTML = html;
+}
+
+async function api(url, body){
+  const opt = body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{};
+  const r = await fetch(url, opt);
+  return r.json();
+}
+
+// Dashboard
+async function loadHome(){
+  const caps = await api('/api/capabilities');
+  $('#capCount').textContent = caps.count;
+  const setup = await api('/api/setup');
+  $('#setupStatus').classList.remove('empty');
+  $('#setupStatus').textContent = JSON.stringify(setup,null,2);
+}
+
+// Capabilities
+async function loadCaps(){
+  const data = await api('/api/capabilities');
+  showHTML('capList', data.capabilities.map(c=>
+    `<div class="cap"><span>${c.capability}</span><span class="mod">${c.module}</span></div>`).join(''));
+}
+
+// Engines
+async function loadEngines(){
+  const data = await api('/api/engines');
+  let html='';
+  for(const k of ['deep_reasoning','fast_processing']){
+    const e=data[k];
+    html+=`<div class="card"><h3>${e.family} (${e.model})</h3><div class="desc">Module: <code>${e.name}</code></div>`;
+    html+='<b>Responsibilities:</b><br>'+e.responsibilities.map(r=>`<span class="tag">${r}</span>`).join(' ');
+    html+='</div>';
+  }
+  showHTML('enginesInfo', html);
+}
+
+// Agent chat
+async function runAgent(){
+  const task = $('#agentInput').value.trim();
+  if(!task) return;
+  const log = $('#chatLog');
+  log.innerHTML += `<div class="chat-msg user"><div class="role">You</div>${escapeHtml(task)}</div>`;
+  log.innerHTML += `<div class="chat-msg ai" id="thinking"><div class="role">Chemistry AI</div>Thinking…</div>`;
+  log.scrollTop = log.scrollHeight;
+  const res = await api('/api/agent',{task});
+  const safe = res.safety_flags||{};
+  let body = '';
+  if(res.blocked){ body = `<span style="color:var(--red)">⚠️ ${escapeHtml(res.response||'Blocked')}</span>`; }
+  else { body = '<pre>'+escapeHtml(JSON.stringify(res,null,2))+'</pre>'; }
+  $('#thinking').innerHTML = `<div class="role">Chemistry AI · ${res.agent||''} ${safe.regulated&&safe.regulated.length?'· ⚠️ regulated precursor':''}</div>${body}`;
+  log.scrollTop = log.scrollHeight;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+// ---- generic dynamic field builder ----
+function fields(id, items){
+  return '<div class="grid2">'+items.map(it=>`<div><label>${it.label}</label><input id="${it.id}" value="${it.val??''}" placeholder="${it.ph??''}"></div>`).join('')+'</div>';
+}
+function num(id){const v=parseFloat($('#'+id).value);return isNaN(v)?0:v;}
+
+// Stoichiometry
+function stoichUI(){
+  const op=$('#stoichOp').value;
+  const f={
+    mass_to_moles:[['g','mass_g','10'],['mm','mm','180.16']],
+    moles_to_mass:[['mol','moles','0.5'],['mm','mm','180.16']],
+    molarity:[['mol','moles','0.5'],['L','volume_L','0.25']],
+    dilution:[['C1','c1','1.0'],['V1','v1','0.1'],['C2','c2','0.1']],
+    percent_yield:[['actual g','actual','8'],['theoretical g','theoretical','10']],
+    limiting_reagent:[]
+  };
+  if(op==='limiting_reagent'){
+    showHTML('stoichFields','<label>Reactants JSON</label><textarea id="lrJSON" rows="4">[{"name":"A","moles":0.5,"coefficient":1},{"name":"B","moles":0.3,"coefficient":2}]</textarea>');
+    return;
+  }
+  showHTML('stoichFields',fields('s',f[op].map(([l,i,v])=>({label:l,id:i,val:v}))));
+}
+async function calcStoich(){
+  const op=$('#stoichOp').value;
+  let body={op};
+  if(op==='limiting_reagent'){body.reactants=JSON.parse($('#lrJSON').value);}
+  else{$('#stoichFields').querySelectorAll('input').forEach(i=>body[i.id]=i.value);}
+  const r=await api('/api/stoichiometry',body);
+  showResult('stoichResult',r.error?r:r.result);
+}
+
+// Thermodynamics
+function thermoUI(){
+  const op=$('#thermoOp').value;
+  const f={gibbs:[['dH (kJ)','dH','-100'],['dS (kJ/K)','dS','-0.2'],['T (K)','T','298']],
+    gibbs_from_K:[['K','K','1e5'],['T (K)','T','298']],
+    van_t_hoff:[['K1','K1','1e3'],['T1 (K)','T1','298'],['T2 (K)','T2','308'],['dH (J)','dH_J','50000']],
+    heat:[['m (g)','m','100'],['c (J/gK)','c','4.18'],['dT (K)','dT','10']],
+    calorimetry:[['m (g)','m','100'],['c','c','4.18'],['dT','dT','5'],['moles','moles','0.1']]}[op];
+  showHTML('thermoFields',fields('t',f.map(([l,i,v])=>({label:l,id:i,val:v}))));
+}
+async function calcThermo(){
+  const op=$('#thermoOp').value;const body={op};
+  $('#thermoFields').querySelectorAll('input').forEach(i=>body[i.id]=i.value);
+  const r=await api('/api/thermodynamics',body);showResult('thermoResult',r.error?r:r.result);
+}
+
+// Kinetics
+function kinUI(){
+  const op=$('#kinOp').value;
+  const f={arrhenius:[['A','A','1e10'],['Ea (J)','Ea','50000'],['T (K)','T','298']],
+    half_life:[['order','order','1'],['k','k','0.01'],['C0','C0','1']],
+    rate_law:[],activation_energy:[['k1','k1','0.01'],['T1','T1','298'],['k2','k2','0.05'],['T2','T2','308']]}[op];
+  if(op==='rate_law'){showHTML('kinFields','<label>Concentrations (JSON array)</label><textarea id="concs" rows="2">[0.1,0.2]</textarea><label>k</label><input id="k" value="0.05"><label>Orders (JSON array)</label><textarea id="orders" rows="2">[1,1]</textarea>');return;}
+  showHTML('kinFields',fields('k',f.map(([l,i,v])=>({label:l,id:i,val:v}))));
+}
+async function calcKin(){
+  const op=$('#kinOp').value;const body={op};
+  if(op==='rate_law'){body.concs=JSON.parse($('#concs').value);body.k=$('#k').value;body.orders=JSON.parse($('#orders').value);}
+  else{$('#kinFields').querySelectorAll('input').forEach(i=>body[i.id]=i.value);}
+  const r=await api('/api/kinetics',body);showResult('kinResult',r.error?r:r.result);
+}
+
+// Equilibrium
+function eqUI(){
+  const op=$('#eqOp').value;
+  const f={ph_from_h:[['[H+]','h','1e-4']],
+    weak_acid_ph:[['Ka','ka','1.8e-5'],['C (M)','C','0.1']],
+    weak_base_ph:[['Kb','kb','1.8e-5'],['C (M)','C','0.1']],
+    henderson:[['pKa','pka','4.76'],['[base]','base','0.1'],['[acid]','acid','0.1']],
+    pka:[['Ka','ka','1.8e-5']],
+    solubility:[['Ksp','ksp','1.6e-5'],['coeffs (JSON)','coeffs','[1,1]']]}[op];
+  if(op==='solubility'){showHTML('eqFields','<label>Ksp</label><input id="ksp" value="1.6e-5"><label>Coefficients (JSON)</label><textarea id="coeffs" rows="2">[1,1]</textarea>');return;}
+  showHTML('eqFields',fields('e',f.map(([l,i,v])=>({label:l,id:i,val:v}))));
+}
+async function calcEq(){
+  const op=$('#eqOp').value;const body={op};
+  if(op==='solubility'){body.ksp=$('#ksp').value;body.coeffs=JSON.parse($('#coeffs').value);}
+  else{$('#eqFields').querySelectorAll('input').forEach(i=>body[i.id]=i.value);}
+  const r=await api('/api/equilibrium',body);showResult('eqResult',r.error?r:r.result);
+}
+
+// Electrochemistry
+function elUI(){
+  const op=$('#elOp').value;
+  const f={cell_potential:[['E cathode','Ec','0.8'],['E anode','Ea','0.34']],
+    nernst:[['E0','E0','1.1'],['n','n','2'],['Q','Q','1'],['T (K)','T','298']],
+    nernst_25c:[['E0','E0','1.1'],['n','n','2'],['Q','Q','1']],
+    gibbs:[['E (V)','E','1.1'],['n','n','2']],
+    faraday_mass:[['I (A)','I','0.5'],['t (s)','t','3600'],['MW','mm','63.55'],['n','n','2']],
+    equilibrium_K:[['E0','E0','1.1'],['n','n','2']]}[op];
+  showHTML('elFields',fields('el',f.map(([l,i,v])=>({label:l,id:i,val:v}))));
+}
+async function calcEl(){
+  const op=$('#elOp').value;const body={op};
+  $('#elFields').querySelectorAll('input').forEach(i=>body[i.id]=i.value);
+  const r=await api('/api/electrochemistry',body);showResult('elResult',r.error?r:r.result);
+}
+
+// Spectroscopy
+function spUI(){
+  const op=$('#spOp').value;
+  const f={beer_conc:[['A','A','0.5'],['ε','eps','1000'],['b (cm)','b','1']],
+    beer_abs:[['C (M)','C','0.0005'],['ε','eps','1000'],['b (cm)','b','1']],
+    abs_from_T:[['T','T','0.5']],
+    chemical_shift:[['Hz','Hz','1200'],['MHz','MHz','400']],
+    mz:[['mass (Da)','mass','180'],['charge','charge','1']],
+    energy_wavelength:[['λ (nm)','nm','254']],
+    wavenumber:[['λ (nm)','nm','1000']]}[op];
+  showHTML('spFields',fields('sp',f.map(([l,i,v])=>({label:l,id:i,val:v}))));
+}
+async function calcSp(){
+  const op=$('#spOp').value;const body={op};
+  $('#spFields').querySelectorAll('input').forEach(i=>body[i.id]=i.value);
+  const r=await api('/api/spectroscopy',body);showResult('spResult',r.error?r:r.result);
+}
+
+// Quantum
+function qmUI(){
+  const op=$('#qmOp').value;
+  const f={hydrogen_energy:[['n','n','1']],
+    particle_in_box:[['n','n','1'],['L (m)','L','1e-9']],
+    harmonic:[['n','n','0'],['ω (rad/s)','omega','1e14']],
+    gaussian_overlap:[['α','alpha','0.5'],['β','beta','0.5'],['R (bohr)','R','1.4']],
+    hartree_to_ev:[['Hartree','hartree','1']]}[op];
+  showHTML('qmFields',fields('qm',f.map(([l,i,v])=>({label:l,id:i,val:v}))));
+}
+async function calcQm(){
+  const op=$('#qmOp').value;const body={op};
+  $('#qmFields').querySelectorAll('input').forEach(i=>body[i.id]=i.value);
+  const r=await api('/api/quantum',body);showResult('qmResult',r.error?r:r.result);
+}
+
+// Units
+function unitUI(){
+  showHTML('unitFields','<label>Value</label><input id="unitVal" value="100">');
+}
+async function calcUnit(){
+  const body={op:$('#unitOp').value};
+  const arg={c_to_f:'c',f_to_c:'f',c_to_k:'c',k_to_c:'k',atm_to_kpa:'atm',kpa_to_atm:'kpa',
+    atm_to_mmhg:'atm',mmhg_to_atm:'mmhg',kj_to_kcal:'kj',kcal_to_kj:'kcal',ev_to_kjmol:'ev',
+    kjmol_to_ev:'kjmol',ml_to_l:'ml',l_to_ml:'l',nm_to_angstrom:'nm',bohr_to_angstrom:'bohr'}[body.op];
+  body[arg]=$('#unitVal').value;
+  const r=await api('/api/units',body);showResult('unitResult',r.error?r:r.result);
+}
+
+// Formula
+async function calcFormula(){
+  const r=await api('/api/formula',{formula:$('#formulaIn').value});
+  showResult('formulaResult',r);
+}
+
+// Cheminformatics
+function ciUI(){
+  const op=$('#ciOp').value;
+  if(op==='parse_smiles'){showHTML('ciFields','<label>SMILES</label><input id="smi" value="CC(=O)OC1=CC=CC=C1C(=O)O">');}
+  else if(op==='substructure'){showHTML('ciFields','<label>SMILES</label><input id="smi" value="CC(=O)Oc1ccccc1C(=O)O"><label>SMARTS</label><input id="sma" value="c1ccccc1">');}
+  else{showHTML('ciFields','<label>SMILES</label><input id="smi" value="CCO">');}
+}
+async function calcCi(){
+  const op=$('#ciOp').value;const body={op,smiles:$('#smi').value};
+  if(op==='substructure')body.smarts=$('#sma').value;
+  const r=await api('/api/cheminformatics',body);showResult('ciResult',r);
+}
+
+// Plots
+function plotUI(){
+  const op=$('#plotOp').value;
+  if(op==='nmr'){showHTML('plotFields','<label>Peaks JSON [[shift,intensity,label],…]</label><textarea id="peaks" rows="3">[[7.2,1,"Ar-H"],[2.1,3,"CH3"],[10.5,1,"COOH"]]</textarea>');}
+  else if(op==='chromatogram'){showHTML('plotFields','<label>Peaks JSON [[rt,intensity,label],…]</label><textarea id="peaks" rows="3">[[3.1,200000,"product"],[5.2,40000,"impurity"]]</textarea>');}
+  else if(op==='kinetics'){showHTML('plotFields','<label>Times (JSON)</label><textarea id="times" rows="2">[0,10,20,30,40,50]</textarea><label>Concentrations (JSON)</label><textarea id="concs" rows="2">[1,0.9,0.81,0.73,0.66,0.59]</textarea>');}
+  else{showHTML('plotFields','<label>x (JSON)</label><textarea id="x" rows="2">[0.001,0.002,0.003,0.004,0.005]</textarea><label>y (JSON)</label><textarea id="y" rows="2">[0.12,0.24,0.37,0.49,0.61]</textarea>');}
+}
+async function genPlot(){
+  const op=$('#plotOp').value;let body={op};
+  if(op==='nmr'||op==='chromatogram')body.peaks=JSON.parse($('#peaks').value);
+  else if(op==='kinetics'){body.times=JSON.parse($('#times').value);body.concs=JSON.parse($('#concs').value);}
+  else{body.x=JSON.parse($('#x').value);body.y=JSON.parse($('#y').value);}
+  const url=op==='nmr'?'plot/nmr':op==='chromatogram'?'plot/chromatogram':op==='kinetics'?'plot/kinetics':'plot/calibration';
+  const r=await api('/api/'+url,body);
+  if(r.image){r.image=r.image.replace(/^static\//,'/static/');}
+  showResult('plotResult',r);
+}
+
+// Reaction scheme
+async function drawScheme(){
+  const r=await api('/api/reaction_scheme',{
+    reactants:$('#rxnR').value.split(',').map(s=>s.trim()),
+    products:$('#rxnP').value.split(',').map(s=>s.trim()),
+    conditions:$('#rxnC').value});
+  if(r.image&&r.image.endsWith('.svg')){r.image=r.image.replace(/^static\//,'/static/');
+    showHTML('rxnResult',`<img src="${r.image}" style="background:#0d1117;border-radius:6px"><br><span class="note">Engine: ${r.engine}</span>`);}
+  else showResult('rxnResult',r);
+}
+
+// Safety
+async function classifyGHS(){
+  const r=await api('/api/safety/ghs',{chemical:$('#ghsIn').value});
+  showResult('ghsResult',r);
+}
+async function checkCompat(){
+  const r=await api('/api/safety/compatibility',{chemicals:$('#compatIn').value.split(',').map(s=>s.trim())});
+  showResult('compatResult',r);
+}
+
+// Databases
+async function searchDb(){
+  const r=await api('/api/db/search',{db:$('#dbSelect').value,query:$('#dbQuery').value});
+  if(r.error){showResult('dbResult',r);return;}
+  const rows=r.results||[];
+  if(!rows.length){showHTML('dbResult','<span class="note">No results.</span>');return;}
+  const keys=Object.keys(rows[0]);
+  let html='<div class="scroll"><table><thead><tr>'+keys.map(k=>`<th>${k}</th>`).join('')+'</tr></thead><tbody>';
+  html+=rows.map(row=>'<tr>'+keys.map(k=>`<td>${escapeHtml(String(row[k]))}</td>`).join('')+'</tr>').join('')+'</tbody></table></div>';
+  showHTML('dbResult',html);
+}
+async function initDb(){
+  const r=await api('/api/init_db',{});showResult('dbResult',r);
+}
+
+// init
+loadHome();loadCaps();loadEngines();
+stoichUI();thermoUI();kinUI();eqUI();elUI();spUI();qmUI();unitUI();ciUI();plotUI();
+$('#agentInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();runAgent();}});
+</script>
+</body>
+</html>

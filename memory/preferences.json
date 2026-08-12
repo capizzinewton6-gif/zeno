@@ -1,0 +1,11 @@
+{
+  "default_solvents": ["THF", "DCM", "toluene"],
+  "default_force_field": "MMFF94",
+  "default_dft_method": "B3LYP",
+  "default_basis_set": "6-31G*",
+  "temperature_unit": "Celsius",
+  "pressure_unit": "atm",
+  "language": "en",
+  "safety_screening": true,
+  "version": "1.0.0"
+}
