@@ -29,24 +29,38 @@ def parse_args():
 
 
 def start_daemons(orchestrator: SmartOrchestrator):
-    """Spin up sensor / autonomy / security background loops."""
+    """Spin up sensor / autonomy / security background loops.
+
+    Each layer is a registry of capability modules; we call a ``poll``/``tick``
+    method on each module that exposes one. Failures are isolated so one bad
+    module never takes down the daemon loop.
+    """
     daemons = []
 
-    def loop(fn, name, interval):
+    def run_layer(layer, name, interval):
         while True:
-            try:
-                fn()
-            except Exception as exc:
-                print(f"[daemon:{name}] error: {exc}", file=sys.stderr)
+            if isinstance(layer, dict):
+                for mod in layer.values():
+                    fn = getattr(mod, "poll", None) or getattr(mod, "tick", None) or getattr(mod, "audit_tick", None)
+                    if callable(fn):
+                        try:
+                            fn()
+                        except Exception as exc:
+                            print(f"[daemon:{name}] {getattr(mod, 'name', mod)} error: {exc}", file=sys.stderr)
+            elif callable(layer):
+                try:
+                    layer()
+                except Exception as exc:
+                    print(f"[daemon:{name}] error: {exc}", file=sys.stderr)
             time.sleep(interval)
 
     specs = [
-        (getattr(orchestrator.sensors, "poll_all", lambda: None), "sensors", 30),
-        (getattr(orchestrator.autonomy, "tick", lambda: None), "autonomy", 15),
-        (getattr(orchestrator.security, "audit_tick", lambda: None), "security", 60),
+        (orchestrator.sensors, "sensors", 30),
+        (orchestrator.autonomy, "autonomy", 15),
+        (orchestrator.security, "security", 60),
     ]
-    for fn, name, interval in specs:
-        t = threading.Thread(target=loop, args=(fn, name, interval), daemon=True, name=f"daemon-{name}")
+    for layer, name, interval in specs:
+        t = threading.Thread(target=run_layer, args=(layer, name, interval), daemon=True, name=f"daemon-{name}")
         t.start()
         daemons.append(t)
     print("[main] background daemons started:", [d.name for d in daemons])

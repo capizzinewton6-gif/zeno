@@ -14,10 +14,13 @@ REQUIREMENTS = [
     "loguru>=0.7.0",
     "pyyaml>=6.0",
     "requests>=2.31.0",
-    "google-generativeai>=0.8.0",
-    "litellm>=1.0.0",
     "rich>=13.0.0",
     "psutil>=5.9.0",
+]
+# Optional: enables real Gemini LLM when an API key is configured.
+# Without it, the assistant falls back to a deterministic local planner.
+OPTIONAL_REQUIREMENTS = [
+    "google-generativeai>=0.8.0",
 ]
 
 RUNTIME_DIRS = ["memory", "logs", "config", "core"]

@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+
+# Runtime / generated
+logs/
+memory/screenshots/
+memory/reminders.json
+memory/notes.json
+memory/calendar.json
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
